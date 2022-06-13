@@ -12,37 +12,39 @@ function getProps(el) {
 
   let events = {};
 
-  //   Set any inline events.
+  // Set any inline events.
   for (let k in el) {
     if (/^on/.test(k) && el[k]) {
       events[camelCase(k, "on")] = el[k];
     }
   }
 
-  //   Set values for attributes.
-  for (let attr in el.attributes) {
-    if (attr.name === "style") {
-      const style = {};
-      Array.from(el.style).forEach((key) => {
-        style[key] = /^--/.test(key)
-          ? el.style.getPropertyValue(key)
-          : el.style[key];
-      });
-      props.style = style;
-    } else if (attr.name === "class") {
-      props.className = attr.value;
-    } else {
-      props[attr.name] = attr.value;
-    }
+  // Set values for attributes.
+  if (el.attributes) {
+    Array.from(el.attributes).forEach((attr) => {
+      if (attr.name === "style") {
+        const style = {};
+        Array.from(el.style).forEach((key) => {
+          style[key] = /^--/.test(key)
+            ? el.style.getPropertyValue(key)
+            : el.style[key];
+        });
+        props.style = style;
+      } else if (attr.name === "class") {
+        props.className = attr.value;
+      } else {
+        props[attr.name] = attr.value;
+      }
+    });
   }
 
-  props = Object.assign(props, events);
-  return props;
+  return Object.assign(props, events);
 }
 
 function getChildren(elements) {
   let children = [];
   if (!elements) return children;
+
   for (let i = 0; i < elements.length; i++) {
     let el = elements[i];
     let props = { ...getProps(el) };
@@ -70,16 +72,16 @@ function getChildren(elements) {
       }
     }
   }
-
   return children;
 }
 
-export const convert = function (domElement) {
+export default function convertElementToReact(domElement) {
   if (!domElement) return null;
   let props = { ...getProps(domElement) };
-  return React.createElement(
+  const reactElem = React.createElement(
     domElement.tagName.toLowerCase(),
     props === {} ? null : props,
-    ...getChildren(domElement.childNodes)
+    getChildren(domElement.childNodes)
   );
-};
+  return reactElem;
+}
