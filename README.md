@@ -1,15 +1,19 @@
-# html-element-to-react
+# convert-element-to-react
+
 Convert HTML DOM elements to React
 
-`npm i --save html-element-to-react`
+`npm i --save convert-element-to-react`
 
 ### Usage
+
 ```js
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { convert } from 'html-element-to-react'
+import React from "react";
+import ReactDOM from "react-dom";
+import convertElementToReact from "convert-element-to-react";
 
-const App = convert(htmlElement)
+const App = convertElementToReact(htmlElement);
 
-ReactDOM.render(App, document.getElementById('app'))
+ReactDOM.render(App, document.getElementById("app"));
 ```
+
+### Originally based on https://github.com/shaaijs/html-element-to-react

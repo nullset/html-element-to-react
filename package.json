@@ -1,6 +1,6 @@
 {
   "name": "convert-element-to-react",
-  "version": "0.1.0-temp-15",
+  "version": "0.1.0",
   "description": "Convert HTML DOM elements to React elements",
   "main": "dist/index.js",
   "scripts": {
@@ -30,6 +30,6 @@
     "@babel/preset-env": "^7.4.5"
   },
   "peerDependencies": {
-    "react": "^16.8.6"
+    "react": "^16.9.0"
   }
 }
