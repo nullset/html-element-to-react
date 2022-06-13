@@ -61,14 +61,12 @@ function getChildren(elements) {
       if (el.nodeType === 3) {
         children.push(el.textContent);
       } else if (el.nodeType === 1) {
-        // if (["VIDEO", "IMG", "AUDIO"].includes(el.nodeName)) {
         children.push(
           React.createElement(
             el.tagName.toLowerCase(),
             props === {} ? null : props
           )
         );
-        // }
       }
     }
   }
